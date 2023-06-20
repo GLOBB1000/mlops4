@@ -1,0 +1,146 @@
+Microsoft Windows [Version 10.0.19045.3086]
+(c) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+C:\WINDOWS\system32>cd C:\Users\GLOBB\Documents\GitHub\mlops4
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>dvc add
+ERROR: the following arguments are required: targets
+usage: dvc add [-h] [-q | -v] [-R] [--no-commit] [--external] [--glob] [--file <filename>] [-o <path>] [--to-remote]
+               [-r <name>] [-j <number>] [-f] [--desc <text>] [--meta key=value] [--label <str>] [--type <str>]
+               targets [targets ...]
+
+Track data files or directories with DVC.
+Documentation: <https://man.dvc.org/add>
+
+positional arguments:
+  targets               Input files/directories to add.
+
+options:
+  -h, --help            show this help message and exit
+  -q, --quiet           Be quiet.
+  -v, --verbose         Be verbose.
+  -R, --recursive       Recursively add files under directory targets.
+  --no-commit           Don't put files/directories into cache.
+  --external            Allow targets that are outside of the DVC repository.
+  --glob                Allows targets containing shell-style wildcards.
+  --file <filename>     Specify name of the .dvc file this command will generate.
+  -o <path>, --out <path>
+                        Destination path to put files to.
+  --to-remote           Download it directly to the remote
+  -r <name>, --remote <name>
+                        Remote storage to download to
+  -j <number>, --jobs <number>
+                        Only used along with '--to-remote'. Number of jobs to run simultaneously when pushing data to
+                        remote.The default value is 4 * cpu_count().
+  -f, --force           Override local file or folder if exists.
+  --desc <text>         User description of the data.
+  --meta key=value      Custom metadata to add to the data.
+  --label <str>         Label for the data.
+  --type <str>          Type of the data.
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>dvc remote add "mlops4" gdrive://1qN5SpiZGjI69aXv0v_W8PCvCrrm4Gj4b
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>dvc remote list
+mlops4  gdrive://1qN5SpiZGjI69aXv0v_W8PCvCrrm4Gj4b
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>dvc push -r mlops4
+Everything is up to date.
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>dvc push -r mlops4
+Everything is up to date.
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>dvc push -r mlops4 ./data
+ERROR: failed to push data to the cloud - './data' does not exist as an output or a stage name in 'dvc.yaml': 'dvc.yaml' does not exist
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   .dvc/config
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        data/
+        models/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>clear
+"clear" не является внутренней или внешней
+командой, исполняемой программой или пакетным файлом.
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>dvc add data
+100% Adding...|███████████████████████████████████████████████████████████████████████████████|1/1 [00:00, 10.87file/s]
+
+To track the changes with git, run:
+
+        git add .gitignore data.dvc
+
+To enable auto staging, run:
+
+        dvc config core.autostage true
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>dvc push -r mlops4
+  0% Querying remote cache|                                                                 |0/1 [00:00<?,    ?files/s]oauth2client\_helpers.py:255: UserWarning: Cannot access C:\Users\GLOBB\AppData\Local\pydrive2fs\Cache\710796635688-iivsgbgsb6uv1fap6635dhvuei09o66c.apps.googleusercontent.com\default.json: No such file or directory
+Your browser has been opened to visit:
+
+    https://accounts.google.com/o/oauth2/auth?client_id=710796635688-iivsgbgsb6uv1fap6635dhvuei09o66c.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2F&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.appdata&access_type=offline&response_type=code&approval_prompt=force
+
+Authentication successful.
+3 files pushed
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>dvc push -r mlops4
+Everything is up to date.
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>git log --oneline
+c506e9a (HEAD -> main, origin/main, origin/HEAD) Update data_methods.py
+dcb215b Add dvc file
+854a086 Dvc integrated
+db4e5d9 Initial commit
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>git checkout dcb215b
+Note: switching to 'dcb215b'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at dcb215b Add dvc file
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>cat
+"cat" не является внутренней или внешней
+командой, исполняемой программой или пакетным файлом.
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>dvc pull -r mlops4
+Everything is up to date.
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>git checkout c506e9a
+Previous HEAD position was dcb215b Add dvc file
+HEAD is now at c506e9a Update data_methods.py
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>dvc pull -r mlops4
+Everything is up to date.
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>loh
+"loh" не является внутренней или внешней
+командой, исполняемой программой или пакетным файлом.
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>log
+"log" не является внутренней или внешней
+командой, исполняемой программой или пакетным файлом.
+
+C:\Users\GLOBB\Documents\GitHub\mlops4>
