@@ -52,4 +52,24 @@ def preprocess_data(source_dataset, scaler, to_fit_scaler):
 
     dataset = dataset.reset_index(drop=True)
 
-    return dataset
+    dataset['x'] = dataset['l2'] - l2_nom
+    dataset['y'] = dataset['l1'] - l1_nom
+
+    num_columns = ['x', 'y']
+
+    if to_fit_scaler:
+        scaler.fit(dataset[num_columns])
+
+    scaled = scaler.transform(dataset[num_columns])
+    scaled = to_polynom(scaled, order=3)
+
+    num_columns = np.hstack([num_columns, ['x2', 'y2', 'x3', 'y3']])
+
+    df_standard = pd.DataFrame(scaled, columns=num_columns)
+    df_standard['z'] = dataset['status'].apply(lambda x: godn if x == godn_name else brak)
+
+    post_count = dataset.shape[0]
+    print(f"{mc.STRING_COUNT_PRE}: {pre_count}")
+    print(f"{mc.STRING_COUNT_POST}: {post_count}")
+
+    return df_standard
